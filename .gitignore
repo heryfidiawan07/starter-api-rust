@@ -1,0 +1,33 @@
+# Cargo build output
+target/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Storage (uploaded files)
+storage/photos/*
+!storage/photos/.gitkeep
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cargo lock (untuk binary, commit Cargo.lock; untuk library, tambahkan ke .gitignore)
+# Cargo.lock
