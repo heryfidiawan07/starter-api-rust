@@ -12,10 +12,10 @@ mod utils;
 use std::net::SocketAddr;
 use std::path::PathBuf;
 
-use axum::Router;
+use axum::{http::Method, Router};
 use sqlx::any::AnyPoolOptions;
 use sqlx::AnyPool;
-use tower_http::{cors::CorsLayer, services::ServeDir};
+use tower_http::{cors::{Any, CorsLayer}, services::ServeDir};
 use tracing::info;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -52,9 +52,18 @@ async fn main() -> anyhow::Result<()> {
     let state = AppState { pool, config: config.clone() };
     let storage_dir = PathBuf::from(&config.storage_path);
 
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods([
+            Method::GET, Method::POST, Method::PUT,
+            Method::PATCH, Method::DELETE, Method::OPTIONS,
+        ])
+        .allow_headers(Any)
+        .max_age(std::time::Duration::from_secs(86400));
+
     let app = routes::build_router(state)
         .nest_service("/storage/photos", ServeDir::new(storage_dir))
-        .layer(CorsLayer::permissive());
+        .layer(cors);
 
     let addr: SocketAddr = format!("0.0.0.0:{}", config.app_port).parse()?;
     info!("Server running on http://{}", addr);

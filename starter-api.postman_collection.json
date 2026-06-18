@@ -435,6 +435,30 @@
           }
         }
       ]
+    },
+    {
+      "name": "Lookup",
+      "description": "Reference data endpoints — auth only, no specific permission required. Use these for populating form dropdowns (role select in Add User, permission tree in Add Role).",
+      "item": [
+        {
+          "name": "Lookup Roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/lookup/roles", "host": ["{{base_url}}"], "path": ["api", "v1", "lookup", "roles"] }
+          },
+          "response": []
+        },
+        {
+          "name": "Lookup Permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/lookup/permissions", "host": ["{{base_url}}"], "path": ["api", "v1", "lookup", "permissions"] }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

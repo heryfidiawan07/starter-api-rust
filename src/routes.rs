@@ -3,7 +3,7 @@ use axum::{
     Router,
 };
 
-use crate::handlers::{auth, permissions, roles, users};
+use crate::handlers::{auth, lookup, permissions, roles, users};
 use crate::AppState;
 
 pub fn build_router(state: AppState) -> Router {
@@ -35,5 +35,8 @@ pub fn build_router(state: AppState) -> Router {
         .route("/api/v1/permissions", get(permissions::index))
         .route("/api/v1/permissions/tree", get(permissions::tree))
         .route("/api/v1/permissions/by-role/:role_id", get(permissions::by_role))
+        // Lookup
+        .route("/api/v1/lookup/roles", get(lookup::get_lookup_roles))
+        .route("/api/v1/lookup/permissions", get(lookup::get_lookup_permissions))
         .with_state(state)
 }
