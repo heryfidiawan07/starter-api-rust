@@ -3,6 +3,7 @@ use axum::{
     response::Response,
 };
 use serde::Serialize;
+use serde_json::json;
 use sqlx::FromRow;
 
 use crate::errors::AppError;
@@ -37,5 +38,17 @@ pub async fn get_lookup_permissions(
     Ok(response::ok(
         "Permissions lookup retrieved",
         serde_json::json!(permission_service::serialize_all(&perms)),
+    ))
+}
+
+pub async fn get_config(
+    State(state): State<AppState>,
+) -> Result<Response, AppError> {
+    Ok(response::ok(
+        "Config retrieved",
+        json!({
+            "google_client_id": state.config.google_client_id,
+            "facebook_app_id": state.config.facebook_client_id,
+        }),
     ))
 }

@@ -38,5 +38,7 @@ pub fn build_router(state: AppState) -> Router {
         // Lookup
         .route("/api/v1/lookup/roles", get(lookup::get_lookup_roles))
         .route("/api/v1/lookup/permissions", get(lookup::get_lookup_permissions))
+        // Config (public)
+        .route("/api/v1/config", get(lookup::get_config))
         .with_state(state)
 }

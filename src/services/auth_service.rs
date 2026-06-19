@@ -59,6 +59,7 @@ pub struct ChangePasswordRequest {
 
 #[derive(Debug, Deserialize)]
 pub struct OAuthRequest {
+    #[serde(rename = "access_token")]
     pub token: String,
 }
 
